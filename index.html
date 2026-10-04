@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>For My Love ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at top, #ffb6c9 0%, #ff7b9d 35%, #8e2146 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      color: #421526;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 430px;
+      position: relative;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -30px;
+      font-size: 20px;
+      animation: floatUp linear forwards;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* FRONT CARD */
+    .photo-card {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 28px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #fff;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.30);
+      padding: 0;
+      z-index: 2;
+      transition:
+        transform 0.8s ease,
+        opacity 0.8s ease;
+    }
+
+    .photo-card:hover {
+      transform: scale(1.015);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 40px 20px;
+      text-align: center;
+      color: white;
+      background:
+        linear-gradient(
+          to top,
+          rgba(0,0,0,0.75),
+          rgba(0,0,0,0.05) 60%
+        );
+    }
+
+    .photo-overlay h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
+
+    .tap-text {
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 12px 22px;
+      border-radius: 30px;
+      backdrop-filter: blur(5px);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* LETTER */
+    .letter {
+      display: none;
+      background: #fffaf5;
+      border-radius: 28px;
+      padding: 35px 25px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.30);
+      position: relative;
+      z-index: 2;
+      animation: letterOpen 1s ease forwards;
+    }
+
+    @keyframes letterOpen {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.92);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .small-heart {
+      text-align: center;
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    .letter h2 {
+      text-align: center;
+      font-size: 30px;
+      color: #9e3155;
+      margin-bottom: 8px;
+    }
+
+    .date-line {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: #999;
+      font-size: 13px;
+      margin-bottom: 25px;
+    }
+
+    .letter p {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .highlight {
+      color: #9e3155;
+      font-weight: bold;
+    }
+
+    .forever {
+      text-align: center;
+      font-size: 23px;
+      color: #9e3155;
+      font-weight: bold;
+      margin: 25px 0;
+    }
+
+    .signature {
+      text-align: right;
+      font-size: 20px;
+      margin-top: 30px;
+      font-style: italic;
+      color: #7b2744;
+    }
+
+    .close-button {
+      display: block;
+      margin: 30px auto 0;
+      border: none;
+      background: #9e3155;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .close-button:hover {
+      background: #7b2744;
+    }
+
+    .footer-heart {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 24px;
+    }
+
+    /* Mobile */
+    @media (max-width: 500px) {
+      .photo-card {
+        height: 570px;
+      }
+
+      .photo-overlay h1 {
+        font-size: 28px;
+      }
+
+      .letter {
+        padding: 30px 21px;
+      }
+
+      .letter h2 {
+        font-size: 27px;
+      }
+
+      .letter p {
+        font-size: 16px;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- PHOTO / FRONT OF CARD -->
+    <button class="photo-card" id="photoCard" aria-label="Open love letter">
+
+      <!-- YOUR PHOTO -->
+      <img
+        src="love-photo.jpg"
+        alt="A beautiful memory of us"
+      >
+
+      <div class="photo-overlay">
+        <h1>For My Love ❤️</h1>
+
+        <div class="tap-text">
+          Tap the photo to open my heart 💕
+        </div>
+      </div>
+
+    </button>
+
+
+    <!-- LOVE LETTER -->
+    <div class="letter" id="letter">
+
+      <div class="small-heart">
+        ❤️
+      </div>
+
+      <h2>My Love</h2>
+
+      <div class="date-line">
+        A little piece of my heart, written just for you
+      </div>
+
+
+      <p>
+        My love,
+      </p>
+
+      <p>
+        I don't know if words will ever be enough to explain how much
+        you mean to me, but I want to try.
+      </p>
+
+      <p>
+        You are not just someone I love. You are someone I can see
+        <span class="highlight">in my future.</span>
+        When I think about the life I want to build, the person I want
+        beside me is you.
+      </p>
+
+      <p>
+        I want you to know that my feelings for you are serious.
+        I don't want you to be just a chapter in my life.
+        I want you to be part of the whole story.
+      </p>
+
+      <p>
+        I want us to grow together, laugh together, face difficult days
+        together and celebrate the beautiful ones together.
+      </p>
+
+      <p>
+        I promise that I will always try to communicate with you,
+        listen to you, respect you and support you.
+        I won't promise that everything will always be perfect,
+        but I promise that when things become difficult,
+        I will choose to work through them with you.
+      </p>
+
+      <p>
+        I want you to become more than my girlfriend.
+        I want you to become my
+        <span class="highlight">fiancée, my wife, my best friend,
+        and my partner for life.</span>
+      </p>
+
+      <p>
+        I want us to build something real.
+        Something strong enough to survive distance, challenges,
+        misunderstandings and the difficult seasons of life.
+      </p>
+
+      <p>
+        And if you ever wonder how serious I am about you,
+        remember this:
+        <span class="highlight">
+          I choose you.
+        </span>
+      </p>
+
+      <div class="forever">
+        I want you today.<br>
+        I want you tomorrow.<br>
+        I want you for the rest of my life. ❤️
+      </div>
+
+      <p>
+        I don't know exactly what the future will look like,
+        but I know who I want beside me when I get there.
+      </p>
+
+      <p>
+        <span class="highlight">You.</span>
+      </p>
+
+      <p>
+        So this isn't just a love letter.
+        It's my promise that my intentions with you are real.
+      </p>
+
+      <p>
+        I hope that one day, when we look back at where everything
+        started, we will smile and say,
+        <span class="highlight">
+          "This was the beginning of forever."
+        </span>
+      </p>
+
+      <div class="forever">
+        Will you be my forever? ❤️
+      </div>
+
+      <div class="signature">
+        With all my heart,<br>
+        <strong>Your Love ❤️</strong>
+      </div>
+
+      <div class="footer-heart">
+        💕 💕 💕
+      </div>
+
+      <button class="close-button" id="closeButton">
+        Look at our photo again ❤️
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    const photoCard = document.getElementById("photoCard");
+    const letter = document.getElementById("letter");
+    const closeButton = document.getElementById("closeButton");
+
+
+    // Open the letter
+    photoCard.addEventListener("click", function () {
+
+      photoCard.style.transform = "scale(0.85)";
+      photoCard.style.opacity = "0";
+
+      setTimeout(function () {
+
+        photoCard.style.display = "none";
+        letter.style.display = "block";
+
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+
+        createHearts();
+
+      }, 700);
+
+    });
+
+
+    // Close the letter
+    closeButton.addEventListener("click", function () {
+
+      letter.style.display = "none";
+
+      photoCard.style.display = "block";
+
+      setTimeout(function () {
+        photoCard.style.transform = "scale(1)";
+        photoCard.style.opacity = "1";
+      }, 50);
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    });
+
+
+    // Floating hearts
+    function createHearts() {
+
+      for (let i = 0; i < 18; i++) {
+
+        setTimeout(function () {
+
+          const heart = document.createElement("div");
+
+          heart.className = "heart";
+
+          const hearts = ["❤️", "💕", "💗", "💖", "💓"];
+
+          heart.textContent =
+            hearts[Math.floor(Math.random() * hearts.length)];
+
+          heart.style.left =
+            Math.random() * 100 + "vw";
+
+          heart.style.fontSize =
+            (15 + Math.random() * 20) + "px";
+
+          heart.style.animationDuration =
+            (4 + Math.random() * 5) + "s";
+
+          document.body.appendChild(heart);
+
+          setTimeout(function () {
+            heart.remove();
+          }, 9000);
+
+        }, i * 150);
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
