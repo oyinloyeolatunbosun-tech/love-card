@@ -257,7 +257,7 @@ body {
     <div class="music-area">
 
       <button class="music-btn" id="musicButton" type="button">
-        🎵 Play Our Song
+        ▶️ Tap Here To Play Our Song
       </button>
 
       <div class="fallback hidden" id="fallback">
@@ -313,8 +313,6 @@ openButton.addEventListener("click", async function() {
 
   createHearts();
 
-  await playMusic();
-
   window.scrollTo({
     top: 0,
     behavior: "smooth"
@@ -327,7 +325,7 @@ musicButton.addEventListener("click", async function() {
     await playMusic();
   } else {
     music.pause();
-    musicButton.textContent = "🎵 Play Our Song";
+    musicButton.textContent = "▶️ Tap Here To Play Our Song";
   }
 
 });
